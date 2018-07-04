@@ -36,6 +36,7 @@ module "cassandra" {
   node_count           = "3"
   availability_domains = "${data.template_file.ad_names.*.rendered}"
   subnet_ocids         = "${var.subnet_ocids}"
+  vcn_cidr             = "${var.vcn_cidr}"
   image_ocid           = "${var.image_ocid[var.region]}"
   ssh_authorized_keys  = "${var.ssh_authorized_keys}"
   ssh_private_key      = "${var.ssh_private_key}"
@@ -45,6 +46,7 @@ module "cassandra" {
 # VARIABLES
 # ---------------------------------------------------------------------------------------------------------------------
 variable "tenancy_ocid" {}
+
 variable "user_ocid" {}
 variable "fingerprint" {}
 variable "private_key_path" {}
@@ -52,6 +54,7 @@ variable "region" {}
 variable "compartment_ocid" {}
 variable "ssh_authorized_keys" {}
 variable "ssh_private_key" {}
+variable "vcn_cidr" {}
 
 variable "subnet_ocids" {
   type = "list"

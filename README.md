@@ -34,6 +34,7 @@ module "cassandra" {
   node_count           = "3"
   availability_domains = "${data.template_file.ad_names.*.rendered}"
   subnet_ocids         = "${var.subnet_ocids}"
+  vcn_cidr             = "${var.vcn_cidr}"
   image_ocid           = "${var.image_ocid[var.region]}"
   ssh_authorized_keys  = "${var.ssh_authorized_keys}"
   ssh_private_key      = "${var.ssh_private_key}"
@@ -50,7 +51,9 @@ label_prefix | To create unique identifier for multiple clusters in a compartmen
 node_count | The number of Cassandra nodes in the cluster.
 availability_domains | The Availability Domain(s) for Cassandra node(s).
 subnet_ocids | List of Cassandra node subnets' ids.
+vcn_cidr | Virtual Cloud Network's CIDR block.
 node_display_name | The name of the Cassandra node.
+cluster_display_name | The Cassandra cluster name.
 image_ocid | The OCID of an image on which the Cassandra node instance is based. You can refer to https://docs.us-phoenix-1.oraclecloud.com/images/ for more details.
 node_shape | Instance shape for node instance to use.
 

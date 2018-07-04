@@ -32,9 +32,19 @@ variable "subnet_ocids" {
   default     = []
 }
 
+variable "vcn_cidr" {
+  description = "Virtual Cloud Network's CIDR block. "
+  default     = ""
+}
+
 variable "node_display_name" {
   description = "The name of the Cassandra node. "
   default     = "tf-cassandra-node"
+}
+
+variable "cluster_display_name" {
+  description = "The Cassandra cluster name. "
+  default     = "ORCL BMC ROCKS"
 }
 
 variable "image_ocid" {

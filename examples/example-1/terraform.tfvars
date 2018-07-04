@@ -14,3 +14,4 @@ compartment_ocid = "<compartment OCID>"
 ssh_authorized_keys = "<path to public key>"
 ssh_private_key = "<path to private key>"
 subnet_ocids = ["<list of subnet OCID>"]
+vcn_cidr = "<Virtual Cloud Network's CIDR block>"
