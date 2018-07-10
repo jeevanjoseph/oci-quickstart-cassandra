@@ -61,3 +61,11 @@ variable "image_id" {
   description = "The OCID of an image on which the Cassandra node instance is based. "
   default     = ""
 }
+
+variable "storage_port" {
+  description = "TCP port for commands and data among Cassandra nodes. "
+}
+
+variable "ssl_storage_port" {
+  description = "SSL port for encrypted communication among Cassandra nodes. "
+}

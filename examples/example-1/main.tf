@@ -38,6 +38,8 @@ module "cassandra" {
   subnet_ocids         = "${var.subnet_ocids}"
   vcn_cidr             = "${var.vcn_cidr}"
   image_ocid           = "${var.image_ocid[var.region]}"
+  storage_port         = "7000"
+  ssl_storage_port     = "7001"
   ssh_authorized_keys  = "${var.ssh_authorized_keys}"
   ssh_private_key      = "${var.ssh_private_key}"
 }
@@ -46,7 +48,6 @@ module "cassandra" {
 # VARIABLES
 # ---------------------------------------------------------------------------------------------------------------------
 variable "tenancy_ocid" {}
-
 variable "user_ocid" {}
 variable "fingerprint" {}
 variable "private_key_path" {}

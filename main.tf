@@ -13,6 +13,8 @@ module "cassandra-node" {
   label_prefix         = "${var.label_prefix}"
   subnet_ids           = "${var.subnet_ocids}"
   vcn_cidr             = "${var.vcn_cidr}"
+  storage_port         = "${var.storage_port}"
+  ssl_storage_port     = "${var.ssl_storage_port}"
   ssh_authorized_keys  = "${var.ssh_authorized_keys}"
   ssh_private_key      = "${var.ssh_private_key}"
 }

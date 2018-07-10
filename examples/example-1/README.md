@@ -1,7 +1,7 @@
 ## Deploy Cassandra Cluster
 This is an example of how to use the terraform_oci_cassandra_cluster module to deploy a Cassandra cluster in OCI.
 
-**Note**: To keep this example as simple as possible, it deploys the Cassandra cluster into your existing VCN and subnets, all of which are publicly accessible.
+**Note**: To keep this example as simple as possible, it deploys the Cassandra cluster into your existing VCN and subnets, all of which are publicly accessible. In addition, storage_port and ssl_storage_port should be configured in security list.
 
 ### Using this example
 Update terraform.tfvars with the required information.

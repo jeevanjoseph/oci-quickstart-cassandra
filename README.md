@@ -36,6 +36,8 @@ module "cassandra" {
   subnet_ocids         = "${var.subnet_ocids}"
   vcn_cidr             = "${var.vcn_cidr}"
   image_ocid           = "${var.image_ocid[var.region]}"
+  storage_port         = "7000"
+  ssl_storage_port     = "7001"
   ssh_authorized_keys  = "${var.ssh_authorized_keys}"
   ssh_private_key      = "${var.ssh_private_key}"
 }
@@ -56,6 +58,8 @@ node_display_name | The name of the Cassandra node.
 cluster_display_name | The Cassandra cluster name.
 image_ocid | The OCID of an image on which the Cassandra node instance is based. You can refer to https://docs.us-phoenix-1.oraclecloud.com/images/ for more details.
 node_shape | Instance shape for node instance to use.
+storage_port | TCP port for commands and data among Cassandra nodes.
+ssl_storage_port | SSL port for encrypted communication among Cassandra nodes.
 
 
 ## Contributing

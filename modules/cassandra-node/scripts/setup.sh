@@ -15,7 +15,8 @@ sudo mkdir /mnt/cassandra
 sudo mount /dev/md0 /mnt/cassandra
 
 # Open up the operating system firewall to allow Cassandra to communicate between instances. We limit communication on the Cassandra ports to the VCN subnet.
-sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="${vcn_cidr}" port protocol="tcp" port="7000-7001" accept'
+sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="${vcn_cidr}" port protocol="tcp" port="${storage_port}" accept'
+sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="${vcn_cidr}" port protocol="tcp" port="${ssl_storage_port}" accept'
 sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="${vcn_cidr}" port protocol="tcp" port="7199" accept'
 
 # Add the DataStax repo, using yum to install Cassandra
@@ -31,6 +32,8 @@ sudo sed -i "170s/.*/    - \/mnt\/cassandra\/data/" /etc/cassandra/conf/cassandr
 sudo sed -i "175s/.*/commitlog_directory: \/mnt\/cassandra\/commitlog/" /etc/cassandra/conf/cassandra.yaml
 sudo sed -i "287s/.*/saved_caches_directory: \/mnt\/cassandra\/saved_caches/" /etc/cassandra/conf/cassandra.yaml
 sudo sed -i '343s/.*/          - seeds: "${private_ips}"/' /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "448s/.*/storage_port: ${storage_port}/" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "453s/.*/ssl_storage_port: ${ssl_storage_port}/" /etc/cassandra/conf/cassandra.yaml
 sudo sed -i "472s/.*/listen_address: ${local_private_ip}/" /etc/cassandra/conf/cassandra.yaml
 sudo sed -i "801s/.*/endpoint_snitch: GossipingPropertyFileSnitch/" /etc/cassandra/conf/cassandra.yaml
 

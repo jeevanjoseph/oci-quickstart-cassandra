@@ -56,3 +56,13 @@ variable "node_shape" {
   description = "Instance shape for node instance to use. "
   default     = "BM.DenseIO1.36"
 }
+
+variable "storage_port" {
+  description = "TCP port for commands and data among Cassandra nodes. "
+  default     = 7000
+}
+
+variable "ssl_storage_port" {
+  description = "SSL port for encrypted communication among Cassandra nodes. "
+  default     = 7001
+}

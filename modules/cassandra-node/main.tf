@@ -10,6 +10,8 @@ data "template_file" "setup_node" {
     private_ips      = "${join(",", oci_core_instance.TFCassandraNode.*.private_ip)}"
     local_private_ip = "${oci_core_instance.TFCassandraNode.*.private_ip[count.index]}"
     node_index       = "${count.index+1}"
+    storage_port     = "${var.storage_port}"
+    ssl_storage_port = "${var.ssl_storage_port}"
   }
 }
 
