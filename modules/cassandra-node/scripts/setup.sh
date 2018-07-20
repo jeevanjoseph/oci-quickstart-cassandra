@@ -5,7 +5,7 @@ set -e -x
 sudo yum update -y
 
 # Install Java and a few other tools
-sudo yum install java mdadm screen dstat -y
+sudo yum install java mdadm -y
 
 # Create a RAID 6 array across all 9 NVMe drives, create an XFS filesystem on the array and mount the filesystem
 sudo mdadm --create /dev/md0 --chunk=256 --raid-devices=9 --level=6 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1 /dev/nvme4n1 /dev/nvme5n1 /dev/nvme6n1 /dev/nvme7n1 /dev/nvme8n1
@@ -19,23 +19,23 @@ sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source addre
 sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="${vcn_cidr}" port protocol="tcp" port="${ssl_storage_port}" accept'
 sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source address="${vcn_cidr}" port protocol="tcp" port="7199" accept'
 
-# Add the DataStax repo, using yum to install Cassandra
-echo -e "[DataStax]\nname=DataStax Repo for Apache Cassandra\nbaseurl=http://rpm.datastax.com/datastax-ddc/3.2\nenabled=1\ngpgcheck=0" | sudo tee /etc/yum.repos.d/datastax.repo
+# Add the Apache Cassandra repo, using yum to install Cassandra
+echo -e "[cassandra]\nname=Apache Cassandra\nbaseurl=https://www.apache.org/dist/cassandra/redhat/311x/\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://www.apache.org/dist/cassandra/KEYS" | sudo tee /etc/yum.repos.d/cassandra.repo
 sudo yum update -y
-sudo yum install datastax-ddc -y
+sudo yum install cassandra-3.11.2 -y
 
 # Set the cluster name, use the NVMe backed filesystem for data, and a few more details
 sudo chown cassandra.cassandra /mnt/cassandra/
-sudo sed -i "10s/.*/cluster_name: '${cluster_name}'/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "71s/.*/hints_directory: \/mnt\/cassandra\/hints/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "170s/.*/    - \/mnt\/cassandra\/data/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "175s/.*/commitlog_directory: \/mnt\/cassandra\/commitlog/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "287s/.*/saved_caches_directory: \/mnt\/cassandra\/saved_caches/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i '343s/.*/          - seeds: "${private_ips}"/' /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "448s/.*/storage_port: ${storage_port}/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "453s/.*/ssl_storage_port: ${ssl_storage_port}/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "472s/.*/listen_address: ${local_private_ip}/" /etc/cassandra/conf/cassandra.yaml
-sudo sed -i "801s/.*/endpoint_snitch: GossipingPropertyFileSnitch/" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/cluster_name:.*/cluster_name: '${cluster_name}'/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/hints_directory:.*/hints_directory: \/mnt\/cassandra\/hints/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/.*\/cassandra\/data/    - \/mnt\/cassandra\/data/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/commitlog_directory:.*/commitlog_directory: \/mnt\/cassandra\/commitlog/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/saved_caches_directory:.*/saved_caches_directory: \/mnt\/cassandra\/saved_caches/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i 's/.*- seeds:.*/          - seeds: "${private_ips}"/g' /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/^storage_port:.*/storage_port: ${storage_port}/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/ssl_storage_port:.*/ssl_storage_port: ${ssl_storage_port}/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/listen_address:.*/listen_address: ${local_private_ip}/g" /etc/cassandra/conf/cassandra.yaml
+sudo sed -i "s/endpoint_snitch:.*/endpoint_snitch: GossipingPropertyFileSnitch/g" /etc/cassandra/conf/cassandra.yaml
 
 # Create the Cassandra cluster
 sudo rm /etc/cassandra/conf/cassandra-topology.properties
