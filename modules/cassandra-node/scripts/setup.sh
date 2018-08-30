@@ -4,8 +4,12 @@ set -e -x
 # Patch the instance
 sudo yum update -y
 
-# Install Java and a few other tools
-sudo yum install java mdadm -y
+# Install Java
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.rpm"
+sudo rpm -ivh jdk-8u181-linux-x64.rpm
+
+# Install tools
+sudo yum install mdadm -y
 
 # Create a RAID 6 array across all 9 NVMe drives, create an XFS filesystem on the array and mount the filesystem
 sudo mdadm --create /dev/md0 --chunk=256 --raid-devices=9 --level=6 /dev/nvme0n1 /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1 /dev/nvme4n1 /dev/nvme5n1 /dev/nvme6n1 /dev/nvme7n1 /dev/nvme8n1
