@@ -1,12 +1,8 @@
 #!/bin/bash
 set -e -x
 
-# Patch the instance
-sudo yum update -y
-
 # Install Java
-wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/jdk-8u181-linux-x64.rpm"
-sudo rpm -ivh jdk-8u181-linux-x64.rpm
+sudo yum install java-1.8.0-openjdk -y
 
 # Install tools
 sudo yum install mdadm -y
@@ -25,7 +21,6 @@ sudo firewall-cmd --zone=public --add-rich-rule='rule family="ipv4" source addre
 
 # Add the Apache Cassandra repo, using yum to install Cassandra
 echo -e "[cassandra]\nname=Apache Cassandra\nbaseurl=https://www.apache.org/dist/cassandra/redhat/311x/\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://www.apache.org/dist/cassandra/KEYS" | sudo tee /etc/yum.repos.d/cassandra.repo
-sudo yum update -y
 sudo yum install cassandra-3.11.2 -y
 
 # Set the cluster name, use the NVMe backed filesystem for data, and a few more details
