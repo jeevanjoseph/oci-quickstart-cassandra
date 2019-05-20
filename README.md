@@ -1,5 +1,5 @@
 # Oracle Cloud Infrastructure Cassandra Terraform Module
-
+These are Terraform modules that deploy [Cassandra](http://cassandra.apache.org/) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).
 
 ## About
 The Cassandra Oracle Cloud Infrastructure Module provides a Terraform-based Cassandra cluster installation for Oracle Cloud Infrastructure (OCI). Apache Cassandra is a leading NoSQL database providing scalability and high availability without compromising performance. Linear scalability and proven fault-tolerance on cloud infrastructure makes it a compelling solution for mission-critical bid data workloads. Cassandra supports replicating across multiple datacenters, providing lower latency for users and the peace of mind of knowing that you can survive regional outage.
@@ -11,7 +11,6 @@ The Cassandra Oracle Cloud Infrastructure Module provides a Terraform-based Cass
 2. Download and install the OCI Terraform Provider (v2.0.0 or later)
 3. Export OCI credentials. (this refer to the https://github.com/oracle/terraform-provider-oci )
 4. An existing VCN with subnets, and those subnets need internet access in order to download tools and files.
-
 
 ## What's a Module?
 A Module is a canonical, reusable, best-practices definition for how to run a single piece of infrastructure, such as a database or server cluster. Each Module is created using Terraform, and includes automated tests, examples, and documentation. It is maintained both by the open source community and companies that provide commercial support.
@@ -60,8 +59,3 @@ image_ocid | The OCID of an image on which the Cassandra node instance is based.
 node_shape | Instance shape for node instance to use.
 storage_port | TCP port for commands and data among Cassandra nodes.
 ssl_storage_port | SSL port for encrypted communication among Cassandra nodes.
-
-
-## Contributing
-This project is open source. Oracle appreciates any contributions that are made by the open source community.
-See Contributing for details.
