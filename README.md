@@ -1,4 +1,4 @@
-# Oracle Cloud Infrastructure Cassandra Terraform Module
+# oci-quickstart-cassandra
 These are Terraform modules that deploy [Cassandra](http://cassandra.apache.org/) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).
 
 ## About
