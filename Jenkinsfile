@@ -14,7 +14,7 @@ podTemplate(
       envVar(key:'TF_VAR_ssh_authorized_keys', value:'./creds/ssh_key.pub'),
       envVar(key:'TF_VAR_ssh_private_key', value:'./creds/ssh_key.private'),
       envVar(key:'TF_VAR_vcn_cidr', value:'192.168.0.0/24'),
-      envVar(key:'TF_VAR_subnet_ocids', value:'ocid1.subnet.oc1.phx.aaaaaaaan5tjgejifuxu2o5pm4vk4ywdvhujrhigdbhfkx6gtgrya3tg3yya')
+//      envVar(key:'TF_VAR_subnet_ocids', value:'ocid1.subnet.oc1.phx.aaaaaaaan5tjgejifuxu2o5pm4vk4ywdvhujrhigdbhfkx6gtgrya3tg3yya')
 
   ],
   volumes: [
