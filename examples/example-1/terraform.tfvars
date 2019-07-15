@@ -13,5 +13,5 @@ compartment_ocid = "<compartment OCID>"
 #Instance Configration
 ssh_authorized_keys = "<path to public key>"
 ssh_private_key = "<path to private key>"
-subnet_ocids = ["<list of subnet OCID>"]
+subnet_ocids = ["ocid1.subnet.oc1.phx.aaaaaaaan5tjgejifuxu2o5pm4vk4ywdvhujrhigdbhfkx6gtgrya3tg3yya"]
 vcn_cidr = "<Virtual Cloud Network's CIDR block>"
